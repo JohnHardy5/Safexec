@@ -1,0 +1,4 @@
+This is a text file used to test if the code signer is hashing data correctly.
+The information should be read in chunks rather than all at once to accommodate
+larger files. Ideally, the code signer would only hash the executable portion
+of the binary file that has been fed, but text files are still a good start.
