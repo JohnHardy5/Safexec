@@ -2,19 +2,22 @@
 
 import unittest
 import data_hasher
-import test_file
+# import test_file
 
 
-def test_data_hasher():
-    """Test data hasher."""
-    test_string = "This is a test string for basic hashing."
-    print(data_hasher.hash(test_string))
+class TestModules(unittest.TestCase):
+    """Test all modules in project"""
 
+    def test_data_hasher(self):
+        """Test data hasher."""
+        test_string = "This is a test string for basic hashing."
 
-def main():
-    """Execute tests."""
-    test_data_hasher()
+        result = data_hasher.hash(test_string)
+        self.assertEqual(
+            result,
+            "c7901b91c1c0be6b1ad74faabb5f57701914e709952be9071a1323732fc6d7ea8feceaddf934e1ca35f1f0c33714b7cb3292bb7b9e6f2cd92821f93491a925bb"
+        )
 
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
