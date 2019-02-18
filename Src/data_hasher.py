@@ -10,6 +10,13 @@ import hashlib
 CHUNK_SIZE = 64
 
 
+def hash(data):
+    """Hash a set of data in one big piece."""
+    h = hashlib.sha3_512()
+    h.update(data.encode("utf-8"))
+    return h.hexdigest()
+
+
 def grab_chunk(data):
     """Yield a small chunk of data from a large file."""
     start = 0
