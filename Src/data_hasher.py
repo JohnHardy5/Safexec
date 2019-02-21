@@ -7,14 +7,14 @@ returned to the code that called it.
 
 import hashlib
 
-CHUNK_SIZE = 64
+CHUNK_SIZE = 1024
 
 
-def hash(data):
-    """Hash a set of data in one big piece."""
-    h = hashlib.sha3_512()
-    h.update(data.encode("utf-8"))
-    return h.hexdigest()
+def hash_data(data):
+    """Hash a string in one big piece."""
+    hash_alg = hashlib.sha3_512()
+    hash_alg.update(data)
+    return hash_alg.hexdigest()
 
 
 def grab_chunk(data):
@@ -24,12 +24,11 @@ def grab_chunk(data):
         chunk = data[start:start + CHUNK_SIZE]
         yield chunk
         start += CHUNK_SIZE
-    return
 
 
 def hash_in_chunks(data):
     """Hash a set of data in chunks."""
-    h = hashlib.sha3_512()
+    hash_alg = hashlib.sha3_512()
     for chunk in grab_chunk(data.encode('utf-8')):
-        h.update(chunk)
-    return h.hexdigest()
+        hash_alg.update(chunk)
+    return hash_alg.hexdigest()
