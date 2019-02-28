@@ -35,15 +35,31 @@ class TestModules(unittest.TestCase):
         )
 
     def test_file_hasher(self):
-        """Test file hashing."""
-        file_path = "test_file.txt"
-        file = open(file_path, "rb")
+        """Test file hashing on simple files as well as large ones."""
+        text_file_path = "test_file.txt"
+        doc_file_path = "test_file.docx"
+        mp4_file_path = "test_file.mp4"
 
+        file = open(text_file_path, "rb")
         self.assertEqual(
             data_hasher.hash_file(file),
             "ef90bed878786313589b4c1458cf19b5cd8d0059239b3dd726ca8ba1bc803f361830c78c764f91163624f5b4e9d77435adc200e7a692be28b0f76680c3ee3e67" # pylint: disable=line-too-long
         )
+        file.close()
 
+        file = open(doc_file_path, "rb")
+        self.assertEqual(
+            data_hasher.hash_file(file),
+            "deaa5f3177edd910a4b2086df7e795506b45cd43129a7159ef1dda69a37b42eff1a07c9be77b8f9e148bc4db053fa2265e9fbd303bbd85116714f2f411bf5e2f" # pylint: disable=line-too-long
+        )
+        file.close()
+
+        file = open(mp4_file_path, "rb")
+        self.assertEqual(
+            data_hasher.hash_file(file),
+            "9627db1a4587e1ceb473f0afce7ea62c7e20ff43463aef64dbe73992184199ec0c43836283cc16321c831ea7a00d9e70a82ccdc083a13ee7aabf84e8523e1c75" # pylint: disable=line-too-long
+        )
+        file.close()
 
 if __name__ == "__main__":
     unittest.main()
