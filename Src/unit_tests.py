@@ -2,6 +2,7 @@
 
 import unittest
 import data_hasher
+import file_handler
 
 def to_binary(string):
     """Convert string to binary"""
@@ -82,6 +83,9 @@ class TestModules(unittest.TestCase):
             "9627db1a4587e1ceb473f0afce7ea62c7e20ff43463aef64dbe73992184199ec0c43836283cc16321c831ea7a00d9e70a82ccdc083a13ee7aabf84e8523e1c75" # pylint: disable=line-too-long
         )
         file.close()
+
+    def test_file_opener:
+
 
 if __name__ == "__main__":
     unittest.main()
