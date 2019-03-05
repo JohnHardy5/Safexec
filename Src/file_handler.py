@@ -16,7 +16,7 @@ import os.path
 def open_file(path):
     """Test a given path to see if it leads to a valid file. If so, open it."""
     file_ext = os.path.splitext(path)[1]
-    if ('.ELF', '.ELFS') not in file_ext:
+    if file_ext not in ('.ELF', '.ELFS'):
         print("ERROR! Bad file given.")
     return None
 

@@ -1,14 +1,14 @@
 """The main unit test suite used to ensure that all source code is bug-free."""
 
 import unittest
+import os
+
 import safexec_exceptions
-import os.path
 import data_hasher
 import file_handler
 
 def to_binary(string):
     """Convert string to binary"""
-    print(''.join(format(x, 'b') for x in bytearray(string, "utf-8")))
     return ''.join(format(x, 'b') for x in bytearray(string, "utf-8"))
 
 class TestModules(unittest.TestCase):
@@ -88,6 +88,11 @@ class TestModules(unittest.TestCase):
 
     def test_file_opener(self):
         """Test file opening on all sorts of file paths."""
+        curr_working_dir = os.getcwd()
+
+        fake_path = curr_working_dir + "/fake_file.ELF"
+        with self.assertRaises(safexec_exceptions.FilePathError):
+            file_handler.open_file(fake_path)
 
 
 
