@@ -1,6 +1,8 @@
 """The main unit test suite used to ensure that all source code is bug-free."""
 
 import unittest
+import safexec_exceptions
+import os.path
 import data_hasher
 import file_handler
 
@@ -84,7 +86,9 @@ class TestModules(unittest.TestCase):
         )
         file.close()
 
-    def test_file_opener:
+    def test_file_opener(self):
+        """Test file opening on all sorts of file paths."""
+
 
 
 if __name__ == "__main__":
