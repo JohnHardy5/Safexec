@@ -12,19 +12,18 @@ file is safe to run. Otherwise, a negative indication is returned instead.
 """
 
 import os.path
+import safexec_exceptions
 
 def open_file(path):
     """Test a given path to see if it leads to a valid file. If so, open it."""
     file_ext = os.path.splitext(path)[1]
     if file_ext not in ('.ELF', '.ELFS'):
-        print("ERROR! Bad file given.")
-    return None
+        raise safexec_exceptions.FileExtensionError
+    
 
 
 def sign(file_path):
     """Sign ELF file. Change file to ELFS."""
-    return None
 
 def check():
     """Check ELFS file."""
-    return None

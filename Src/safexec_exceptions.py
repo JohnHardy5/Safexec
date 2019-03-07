@@ -30,7 +30,7 @@ class FileNotSafeError(Error):
     def __init__(self):
         Error.__init__(self, "File provided is not safe to run.")
 
-class UnsignedFileError(Error):
+class FileNotSignedError(Error):
     """Raise error for unsigned .ELFS file."""
     def __init__(self):
         Error.__init__(self, ".ELFS file provided does not have a signature.")
