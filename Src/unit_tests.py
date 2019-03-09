@@ -91,9 +91,11 @@ class TestModules(unittest.TestCase):
     def test_file_opener(self):
         """Test file opening on all sorts of file paths."""
 
-        fake_path = CURR_WORKING_DIR + "/../Testing/fake_file.ELF"
+        fake_path = CURR_WORKING_DIR + "/../Testing/fake_dir"
         with self.assertRaises(safexec_exceptions.FilePathError):
             file_handler.open_file(fake_path)
+
+        #TODO add unit test for non existent file
 
         bad_file_path = CURR_WORKING_DIR + "/../Testing/hello.c"
         with self.assertRaises(safexec_exceptions.FileExtensionError):

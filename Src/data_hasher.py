@@ -45,6 +45,7 @@ def hash_file(file):
 
 def sign_elf(file_path):
     """Sign an ELF file if it is valid."""
+    file = file_handler
 
 def check_elfs(file_path):
     """Check an ELFS signature if it is valid."""

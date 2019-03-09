@@ -19,11 +19,14 @@ def open_file(path):
     file_ext = os.path.splitext(path)[1]
     if file_ext not in ('.ELF', '.ELFS'):
         raise safexec_exceptions.FileExtensionError
-    
+    if not os.path.exists(path):
+        raise safexec_exceptions.FilePathError
+    if not os.path.isfile(path):
+        raise FileNotFoundError
+    return open(path, "rb")
 
-
-def sign(file_path):
+def sign(file, hash):
     """Sign ELF file. Change file to ELFS."""
 
-def check():
+def check(file, hash):
     """Check ELFS file."""

@@ -18,7 +18,7 @@ class Error(Exception):
 class FilePathError(Error):
     """Raise error for bad file path."""
     def __init__(self):
-        Error.__init__(self, "File for path provided does not exist.")
+        Error.__init__(self, "Filepath provided does not exist.")
 
 class FileExtensionError(Error):
     """Raise error for bad file extension."""
