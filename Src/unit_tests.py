@@ -53,10 +53,10 @@ class TestModules(unittest.TestCase):
 
     def test_file_hasher(self):
         """Test file hashing on simple files as well as large ones."""
-        text_file_path = "../Testing/test_file.txt"
-        empty_file_path = "../Testing/empty_file.txt"
-        doc_file_path = "../Testing/test_file.docx"
-        mp4_file_path = "../Testing/test_file.mp4"
+        text_file_path = "../Testing/test.txt"
+        empty_file_path = "../Testing/empty.txt"
+        doc_file_path = "../Testing/test.docx"
+        mp4_file_path = "../Testing/test.mp4"
 
         file = open(text_file_path, "rb")
         self.assertEqual(
@@ -94,16 +94,16 @@ class TestModules(unittest.TestCase):
         with self.assertRaises(safexec_exceptions.FilePathError):
             file_handler.open_file(fake_path)
 
-        bad_file_path = curr_working_dir + "/../Testing/test_file.c"
+        bad_file_path = curr_working_dir + "/../Testing/hello.c"
         with self.assertRaises(safexec_exceptions.FileExtensionError):
             file_handler.open_file(bad_file_path)
 
         #TODO Append hash of test_file.ELF to end of unsafe_file.ELFS
-        unsafe_file_path = curr_working_dir + "/../Testing/unsafe_file.ELFS"
+        unsafe_file_path = curr_working_dir + "/../Testing/unsafe.ELFS"
         with self.assertRaises(safexec_exceptions.FileNotSafeError):
             file_handler.open_file(unsafe_file_path)
 
-        unsigned_file_path = curr_working_dir + "/../Testing/unsigned_file.ELFS"
+        unsigned_file_path = curr_working_dir + "/../Testing/unsigned.ELFS"
         with self.assertRaises(safexec_exceptions.FileNotSignedError):
             file_handler.open_file(unsigned_file_path)
 
