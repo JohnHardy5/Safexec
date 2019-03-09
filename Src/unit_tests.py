@@ -7,6 +7,8 @@ import safexec_exceptions
 import data_hasher
 import file_handler
 
+CURR_WORKING_DIR = os.getcwd()
+
 def to_binary(string):
     """Convert string to binary"""
     return ''.join(format(x, 'b') for x in bytearray(string, "utf-8"))
@@ -88,26 +90,32 @@ class TestModules(unittest.TestCase):
 
     def test_file_opener(self):
         """Test file opening on all sorts of file paths."""
-        curr_working_dir = os.getcwd()
 
-        fake_path = curr_working_dir + "/../Testing/fake_file.ELF"
+        fake_path = CURR_WORKING_DIR + "/../Testing/fake_file.ELF"
         with self.assertRaises(safexec_exceptions.FilePathError):
             file_handler.open_file(fake_path)
 
-        bad_file_path = curr_working_dir + "/../Testing/hello.c"
+        bad_file_path = CURR_WORKING_DIR + "/../Testing/hello.c"
         with self.assertRaises(safexec_exceptions.FileExtensionError):
             file_handler.open_file(bad_file_path)
 
-        unsafe_file_path = curr_working_dir + "/../Testing/unsafe.ELFS"
+        unsafe_file_path = CURR_WORKING_DIR + "/../Testing/unsafe.ELFS"
         print(data_hasher.hash_file(unsafe_file_path))
         with self.assertRaises(safexec_exceptions.FileNotSafeError):
             file_handler.open_file(unsafe_file_path)
 
-        unsigned_file_path = curr_working_dir + "/../Testing/unsigned.ELFS"
+        unsigned_file_path = CURR_WORKING_DIR + "/../Testing/unsigned.ELFS"
         with self.assertRaises(safexec_exceptions.FileNotSignedError):
             file_handler.open_file(unsigned_file_path)
 
-        safe_file_path = curr_working_dir + "/../Testing/hello.ELFS"
+    def test_elf_and_elfs_hashing(self):
+        """Test elf signing and elfs signature checking."""
+
+        original_file_path = CURR_WORKING_DIR + "/../Testing/hello.ELF"
+        self.assertEqual(data_hasher.sign_elf(original_file_path), True)
+
+        safe_file_path = CURR_WORKING_DIR + "/../Testing/hello.ELFS"
+        self.assertEqual(data_hasher.check_elfs(safe_file_path), True)
 
 
 if __name__ == "__main__":
