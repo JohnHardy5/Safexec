@@ -107,6 +107,8 @@ class TestModules(unittest.TestCase):
         with self.assertRaises(safexec_exceptions.FileNotSignedError):
             file_handler.open_file(unsigned_file_path)
 
+        safe_file_path = curr_working_dir + "/../Testing/hello.ELFS"
+
 
 if __name__ == "__main__":
     unittest.main()
