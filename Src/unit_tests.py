@@ -98,8 +98,8 @@ class TestModules(unittest.TestCase):
         with self.assertRaises(safexec_exceptions.FileExtensionError):
             file_handler.open_file(bad_file_path)
 
-        #TODO Append hash of test_file.ELF to end of unsafe_file.ELFS
         unsafe_file_path = curr_working_dir + "/../Testing/unsafe.ELFS"
+        print(data_hasher.hash_file(unsafe_file_path))
         with self.assertRaises(safexec_exceptions.FileNotSafeError):
             file_handler.open_file(unsafe_file_path)
 
