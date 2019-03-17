@@ -10,18 +10,18 @@ import hashlib
 CHUNK_SIZE = 64
 
 
-def hash(data):
-    """Hash a set of data in one big piece."""
+def hash_string(string):
+    """Hash a string in one big piece."""
     h = hashlib.sha3_512()
-    h.update(data.encode("utf-8"))
+    h.update(string.encode("utf-8"))
     return h.hexdigest()
 
 
-def grab_chunk(data):
+def grab_chunk(file):
     """Yield a small chunk of data from a large file."""
     start = 0
-    while start < len(data):
-        chunk = data[start:start + CHUNK_SIZE]
+    while start < len(file):
+        chunk = file[start:start + CHUNK_SIZE]
         yield chunk
         start += CHUNK_SIZE
     return
