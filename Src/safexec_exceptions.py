@@ -15,6 +15,11 @@ UnsignedFileError - Occurs when a .ELFS file provided does not have a hash
 class Error(Exception):
     """Base class for other exceptions"""
 
+class NotEnoughArgsError(Error):
+    """Raise error for passing too few arguments."""
+    def __init__(self):
+        Error.__init__(self, "Not enough command line arguments given.")
+
 class FilePathError(Error):
     """Raise error for bad file path."""
     def __init__(self):

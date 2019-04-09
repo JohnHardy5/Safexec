@@ -5,7 +5,8 @@ Files can be opened, copied, or modified in order to prepare them for other
 operations such as hashing or signing.
 """
 
-import os.path
+import os
+import shutil
 import safexec_exceptions
 
 
@@ -22,7 +23,8 @@ def open_file(path):
 
 
 def pull_hash_from_file(file):
-    """Return the last 64 bytes of a file."""
+    """Return the last 64 bytes of a file if it is a hash."""
+    #file_hash = file
     print("Pull hash")
 
 
@@ -31,6 +33,11 @@ def create_elf(file):
     print("create elf")
 
 
-def create_elfs(file, hash):
+def create_elfs(file, file_hash):
     """Create an ELFS file from an ELF file and a hash."""
-    print("create elfs")
+    file_path = os.path.abspath(file.name)
+    new_file_path = file_path + "S"
+    shutil.copyfile(file_path, new_file_path)
+    new_file = open(new_file_path, "a")
+    new_file.write(file_hash)
+    new_file.close()

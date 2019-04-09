@@ -12,20 +12,21 @@ file is safe to run. Otherwise, a negative indication is returned instead.
 """
 
 import sys
+import safexec_exceptions
 import file_handler
 import data_hasher
 
 
-def sign(f):
+def sign(file):
     """Sign ELF file. Change file to ELFS."""
-    hash = data_hasher.hash_file(f)
-    file_handler.create_elfs(f, hash)
+    file_hash = data_hasher.hash_file(file)
+    file_handler.create_elfs(file, file_hash)
 
 
-def check(f):
+def check(file):
     """Check ELFS file."""
-    given_hash = file_handler.pull_hash_from_file(f)
-    elf = file_handler.create_elf(f)
+    given_hash = file_handler.pull_hash_from_file(file)
+    elf = file_handler.create_elf(file)
     actual_hash = data_hasher.hash_file(elf)
     elf.close()
     if given_hash == actual_hash:
@@ -33,11 +34,13 @@ def check(f):
     else:
         print("File provided is NOT safe-to-execute.")
 
+if len(sys.argv) < 2:
+    raise safexec_exceptions.NotEnoughArgsError
 
-file, extension = file_handler.open_file(sys.argv[1])
-if extension is ".ELF":
-    sign(file)
+FILE, EXTENSION = file_handler.open_file(sys.argv[1])
+if EXTENSION == ".ELF":
+    sign(FILE)
 else:
-    check(file)
+    check(FILE)
 
-file.close()
+FILE.close()
