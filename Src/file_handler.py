@@ -1,18 +1,13 @@
 """
-Used to manage files and handle signing or checking the signature of a file.
+Used to manage files and change them.
 
-The sign() function takes a .ELF file and hashes the contents, placing the
-hash at the end of the file. The file is then renamed as a .ELFS file (this
-stands for ELF Secure).
-
-The check() function takes a .ELFS file and removes the hash from the end
-of the file. The remaining contents are hashed and the two hashes are compared.
-If the two are the same, the function returns a positive indication that the
-file is safe to run. Otherwise, a negative indication is returned instead.
+Files can be opened, copied, or modified in order to prepare them for other
+operations such as hashing or signing.
 """
 
 import os.path
 import safexec_exceptions
+
 
 def open_file(path):
     """Test a given path to see if it leads to a valid file. If so, open it."""
@@ -23,10 +18,19 @@ def open_file(path):
         raise safexec_exceptions.FilePathError
     if not os.path.isfile(path):
         raise FileNotFoundError
-    return open(path, "rb")
+    return [open(path, "rb"), file_ext]
 
-def sign(file, hash):
-    """Sign ELF file. Change file to ELFS."""
 
-def check(file, hash):
-    """Check ELFS file."""
+def pull_hash_from_file(file):
+    """Return the last 64 bytes of a file."""
+    print("Pull hash")
+
+
+def create_elf(file):
+    """Create an ELF file from an ELFS file."""
+    print("create elf")
+
+
+def create_elfs(file, hash):
+    """Create an ELFS file from an ELF file and a hash."""
+    print("create elfs")

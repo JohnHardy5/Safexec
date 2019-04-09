@@ -9,12 +9,6 @@ import hashlib
 
 FILE_CHUNK_SIZE = 1024
 
-def hash_string(string):
-    """Hash an entire encoded string of data."""
-    hash_alg = hashlib.sha3_512()
-    hash_alg.update(string.encode("utf-8"))
-    return hash_alg.hexdigest()
-
 
 def hash_string(string):
     """Hash a string in one big piece."""
@@ -27,9 +21,9 @@ def grab_chunk(file):
     """Yield a small chunk of data from a large file."""
     start = 0
     while start < len(file):
-        chunk = file[start:start + CHUNK_SIZE]
+        chunk = file[start:start + FILE_CHUNK_SIZE]
         yield chunk
-        start += chunk_size
+        start += FILE_CHUNK_SIZE
 
 
 def hash_in_chunks(data, chunk_size):
@@ -49,10 +43,3 @@ def hash_file(file):
             break
         hash_alg.update(data)
     return hash_alg.hexdigest()
-
-def sign_elf(file_path):
-    """Sign an ELF file if it is valid."""
-    file = file_handler
-
-def check_elfs(file_path):
-    """Check an ELFS signature if it is valid."""
