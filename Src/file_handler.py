@@ -9,6 +9,8 @@ import os
 import shutil
 import safexec_exceptions
 
+HASH_SIZE_IN_BITS = 512
+
 
 def open_file(path):
     """Test a given path to see if it leads to a valid file. If so, open it."""
@@ -24,13 +26,23 @@ def open_file(path):
 
 def pull_hash_from_file(file):
     """Return the last 64 bytes of a file if it is a hash."""
-    #file_hash = file
-    print("Pull hash")
+    # Move file pointer to the beginning of the hash at the end of the file.
+    file.seek(-(HASH_SIZE_IN_BITS // 4), os.SEEK_END)
+    return file.read(HASH_SIZE_IN_BITS).decode("utf-8")
 
 
 def create_elf(file):
     """Create an ELF file from an ELFS file."""
-    print("create elf")
+    file_path = os.path.abspath(file.name)
+    new_file_path = file_path[:-1]
+    print(new_file_path)
+    shutil.copyfile(file_path, new_file_path)
+    new_file = open(new_file_path, "rb+")
+    new_file.seek(-(HASH_SIZE_IN_BITS // 4), os.SEEK_END)
+    new_file.truncate()
+    # Move file pointer back to the beginning for hashing.
+    new_file.seek(0, os.SEEK_SET)
+    return new_file
 
 
 def create_elfs(file, file_hash):

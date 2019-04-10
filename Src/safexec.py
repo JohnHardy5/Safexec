@@ -34,6 +34,7 @@ def check(file):
     else:
         print("File provided is NOT safe-to-execute.")
 
+
 if len(sys.argv) < 2:
     raise safexec_exceptions.NotEnoughArgsError
 
